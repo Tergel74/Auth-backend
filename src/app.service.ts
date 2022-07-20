@@ -1,15 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import data from '../../data.json';
+import { Sequelize } from 'sequelize-typescript';
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return 'Hello World!';
+  constructor(private sequelize: Sequelize) {
+    this.sequelize.sync()
   };
-  getData(): string {
-    // console.log(data);
-    // console.log('sdfs')
-    return 'Success!';
-  }
 }
 

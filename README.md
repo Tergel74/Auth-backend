@@ -1,3 +1,11 @@
+# Description
+
+This is my learning projects Backend that I made using Nest JS and connected a MySQL database (Schema -> Users).
+
+This is my first experience using Nest JS and database.
+
+
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
