@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import sequelize from 'sequelize';
 import { User } from 'src/models/users.model';
 
 // generate random 4 digit number for the id
