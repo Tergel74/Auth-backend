@@ -3,6 +3,9 @@ import { InjectModel } from '@nestjs/sequelize';
 import sequelize from 'sequelize';
 import { User } from 'src/models/users.model';
 
+// generate random 4 digit number for the id
+var val = Math.floor(1000 + Math.random() * 9000);
+
 @Injectable()
 export class UserService {
   constructor(@InjectModel(User) private userModel: typeof User) {};
@@ -12,7 +15,7 @@ export class UserService {
 
   createUser(data) {
     const newUser = new this.userModel({
-      userId: data.userId,
+      userId: val,
       userName: data.userName,
       age: data.age,
       score: data.score,
