@@ -1,5 +1,6 @@
-import { Controller, Get, Post, Body, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Res } from '@nestjs/common';
 import { UserService } from './user.service';
+import { Response } from 'express'
 import { User } from 'src/models/users.model';
 
 type userBody = {userName: string, age: number, score: number, pass: string}
@@ -7,12 +8,6 @@ type userBody = {userName: string, age: number, score: number, pass: string}
 @Controller('/user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
-
-  // @Get('users')
-  // getUser(): Promise<User[]> {
-  //   return this.userService.getUsers()
-  // };
-
   users: any[] = [];
 
   @Get('/users')
@@ -21,8 +16,24 @@ export class UserController {
   };
 
   @Post('/create')
-  createUser(@Body() body: userBody) {
-    this.userService.createUser(body)
-    return {message: "Successfully signed up!", body}
+  async createUser(@Body() body: userBody, @Res() res: Response) {
+    let userExists = false
+
+    const isUserNameUnique = User.findOne({
+      where: { userName: body.userName },
+    });
+
+    if (await isUserNameUnique != null) {
+      res.send(userExists)
+    } else if (await isUserNameUnique == null) {
+      userExists = true
+      if (body.score > 100) {
+        body.score = 100
+      }
+      this.userService.createUser(body);
+      res.send(userExists)
+      userExists = false;
+      return {message: "Successfully signed up!", body}
+    }
   }
 }
