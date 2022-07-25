@@ -35,5 +35,16 @@ export class UserController {
       userExists = false;
       return {message: "Successfully signed up!", body}
     }
+  };
+
+  @Post('/signIn')
+  async signIn(@Body() body: userBody, @Res() res: Response) {
+    if (await this.userService.signIn(body) == false) {
+      res.send(false)
+    } else {
+      res.send(true)
+      this.userService.signIn(body)
+      return {message: "Successfully logged in!", body}
+    }
   }
 }

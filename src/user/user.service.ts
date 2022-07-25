@@ -33,6 +33,17 @@ export class UserService {
     })
     newUser.save()
     return newUser;
+  };
+
+  async signIn(data) {
+    const userMatch = User.findOne({ where: {userName: data.userName, pass: data.pass}});
+    let matches = false;
+    if (await userMatch != null) {
+      matches = true;
+      return userMatch
+    } else {
+      return matches
+    }
   }
 }
 
